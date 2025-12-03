@@ -7,6 +7,10 @@ const PORT =  3000;
 
 const wordFilePath = path.join(__dirname, 'ele.docx');
 const pdfFilePath = path.join(__dirname, 'ele_pdf.pdf');
+const pdfFilePathLV = path.join(__dirname, 'ele_pdf_lv.pdf');
+const zipFilePath = path.join(__dirname, 'file.zip');
+
+
 
 app.get("/word", (req, res) => {
     if (fs.existsSync(wordFilePath)) {
@@ -16,9 +20,17 @@ app.get("/word", (req, res) => {
     }
 });
 
+app.get("/file", (req, res) => {
+    if (fs.existsSync(zipFilePath)) {
+        res.download(zipFilePath);
+    } else {
+        res.status(404).send("File not found");
+    }
+});
+
 app.get("/pdf", (req, res) => {
-    if (fs.existsSync(pdfFilePath)) {
-        res.download(pdfFilePath);
+    if (fs.existsSync(pdfFilePathLV)) {
+        res.download(pdfFilePathLV);
     } else {
         res.status(404).send("File not found");
     }
